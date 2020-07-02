@@ -1,45 +1,73 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 
 public class ObjectCommunication : MonoBehaviour
 {
-    private bool  startInteraction;
+    [SerializeField] private Material highlightedMaterial;
+    [SerializeField] private Material defaultMaterial; 
+    private bool UsageMod, allowInteraction;
+    private Animator animator;
+    private InteractionMode interaction;
 
-    Animator animator;
-
-   
     // Start is called before the first frame update
     void Start()
     {
-
-        startInteraction = false;
+        allowInteraction = false;
+        UsageMod = false;
         animator = GetComponent<Animator>();
-        animator.Play("Obj_Idle");
-
+  
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (startInteraction)
+        if (UsageMod && allowInteraction)
         {
-            animator.Play("Obj_Speak");
-
+            switch (interaction)
+            {
+                case InteractionMode.Speak:
+                    print("hier alles ok");
+                    animator.Play("Obj_Speak");
+                    break;
+                case InteractionMode.Walk:
+                    animator.Play("Obj_Idle");
+                    break;
+                case InteractionMode.Love:
+                    animator.Play("Obj_Idle");
+                    break;
+                default:
+                    animator.Play("Obj_Idle");
+                    break;
+            }
         }
         else {
             animator.Play("Obj_Idle");
         }
+            
+    }
+    public void SetUsageMod() {
+        UsageMod = !UsageMod;
+        MeshRenderer [] children = GetComponentsInChildren<MeshRenderer>();
+        if (UsageMod)
+        {
+            highlightChildren(highlightedMaterial, children);
+        }
+        else {
+            highlightChildren(defaultMaterial, children);
+        }
+
+    }
+    public void SetInteractionMode(InteractionMode mode) {
+        allowInteraction = !allowInteraction;
+        interaction = mode;
     }
 
-    public void StartMoving() {
-        startInteraction = true;
-        
+    //colors the selected Objects
+    private void highlightChildren(Material material, MeshRenderer[] childs) {
+        foreach (MeshRenderer child in childs)
+        {
+            child.material = highlightedMaterial;
+        }
     }
-    public void StopMoving() {
-        startInteraction = false;
-    }
-
-    
 }
