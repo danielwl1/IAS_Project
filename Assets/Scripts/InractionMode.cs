@@ -6,5 +6,5 @@ public enum InteractionMode
 {
     Speak,
     Love,
-    Walk
+    Idle
 }

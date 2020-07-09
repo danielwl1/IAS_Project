@@ -9,6 +9,7 @@ public class ObjectCommunication : MonoBehaviour
     private bool UsageMod, allowInteraction;
     private Animator animator;
     private InteractionMode interaction;
+    private MeshRenderer mesh;
 
     // Start is called before the first frame update
     void Start()
@@ -16,7 +17,8 @@ public class ObjectCommunication : MonoBehaviour
         allowInteraction = false;
         UsageMod = false;
         animator = GetComponent<Animator>();
-  
+        mesh = GetComponent<MeshRenderer>();
+       
     }
 
     // Update is called once per frame
@@ -30,7 +32,7 @@ public class ObjectCommunication : MonoBehaviour
                     print("hier alles ok");
                     animator.Play("Obj_Speak");
                     break;
-                case InteractionMode.Walk:
+                case InteractionMode.Idle:
                     animator.Play("Obj_Idle");
                     break;
                 case InteractionMode.Love:
@@ -41,33 +43,29 @@ public class ObjectCommunication : MonoBehaviour
                     break;
             }
         }
-        else {
+        else
+        {
             animator.Play("Obj_Idle");
         }
-            
+
     }
+
+    //sets UsageMod of selected Objects and changes materials them
     public void SetUsageMod() {
         UsageMod = !UsageMod;
-        MeshRenderer [] children = GetComponentsInChildren<MeshRenderer>();
+        
         if (UsageMod)
         {
-            highlightChildren(highlightedMaterial, children);
+            mesh.material = highlightedMaterial;
         }
         else {
-            highlightChildren(defaultMaterial, children);
+            mesh.material = defaultMaterial;
         }
 
     }
     public void SetInteractionMode(InteractionMode mode) {
         allowInteraction = !allowInteraction;
+        mesh.material = defaultMaterial;
         interaction = mode;
-    }
-
-    //colors the selected Objects
-    private void highlightChildren(Material material, MeshRenderer[] childs) {
-        foreach (MeshRenderer child in childs)
-        {
-            child.material = highlightedMaterial;
-        }
     }
 }
