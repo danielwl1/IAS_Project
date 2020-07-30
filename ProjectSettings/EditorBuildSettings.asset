@@ -59,9 +59,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Ar_Test_Scene_ComplexMovement.unity
     guid: 224a7c1537f188b41a992cd4953a8ae8
-  - enabled: 1
-    path: Assets/Scenes/updated_targetpictures.unity
+  - enabled: 0
+    path: Assets/Scenes/final_prototype.unity
     guid: 52a65bc91f7c28848a83d7cd32bb9047
+  - enabled: 1
+    path: Assets/Scenes/finaldraft.unity
+    guid: 78a184b5cbd230146b234dd5ff7e4ce5
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: fce34cc4d6f215e4283a1ccad29226d8,
       type: 2}

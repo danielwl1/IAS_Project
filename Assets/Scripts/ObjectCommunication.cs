@@ -1,71 +1,62 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectCommunication : MonoBehaviour
 {
     [SerializeField] private Material highlightedMaterial;
-    [SerializeField] private Material defaultMaterial; 
-    private bool UsageMod, allowInteraction;
+    [SerializeField] private Material defaultMaterial;
+
+    private bool selected;
+    private string currentAnimation;
     private Animator animator;
-    private InteractionMode interaction;
     private MeshRenderer mesh;
 
-    // Start is called before the first frame update
+    //Start is called before the first frame update
     void Start()
     {
-        allowInteraction = false;
-        UsageMod = false;
+        selected = false;
         animator = GetComponent<Animator>();
         mesh = GetComponent<MeshRenderer>();
-       
+        currentAnimation = "Obj_Idle";
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (UsageMod && allowInteraction)
-        {
-            switch (interaction)
-            {
-                case InteractionMode.Speak:
-                    print("hier alles ok");
-                    animator.Play("Obj_Speak");
-                    break;
-                case InteractionMode.Idle:
-                    animator.Play("Obj_Idle");
-                    break;
-                case InteractionMode.Love:
-                    animator.Play("Obj_Idle");
-                    break;
-                default:
-                    animator.Play("Obj_Idle");
-                    break;
-            }
-        }
-        else
-        {
-            animator.Play("Obj_Idle");
-        }
-
+        animator.Play(currentAnimation);
     }
 
-    //sets UsageMod of selected Objects and changes materials them
-    public void SetUsageMod() {
-        UsageMod = !UsageMod;
-        
-        if (UsageMod)
+
+
+    //Sets UsageMod of selected Objects and changes materials them
+    public void Select() {
+        selected = !selected;
+        if (selected)
         {
             mesh.material = highlightedMaterial;
         }
-        else {
+        else
+        {
             mesh.material = defaultMaterial;
         }
-
     }
-    public void SetInteractionMode(InteractionMode mode) {
-        allowInteraction = !allowInteraction;
-        mesh.material = defaultMaterial;
-        interaction = mode;
+
+    //Starts animation after Button got pressed
+    public void StartAnimation(string animationMode) {
+        if (selected)
+        {
+            currentAnimation = animationMode;
+            selected = false;
+            mesh.material = defaultMaterial;        
+        }
+    }
+
+    public void ResetAnimation(string buttonAction)
+    {
+        if (currentAnimation.Equals(buttonAction))
+        {
+            currentAnimation = "Obj_Idle";
+        }
     }
 }

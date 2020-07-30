@@ -1,32 +1,50 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class ButtonManager : MonoBehaviour
 {
-    private bool buttonState;
+    private bool talkButtonState,loveButtonState,askButtonState;
     private ObjectCommunication[] toys;
     void Start()
     {
-        buttonState = false;
+        talkButtonState = true;
         toys = GetComponentsInChildren<ObjectCommunication>();
     }
 
-    public void MessageButtonIsPressed()
+    public void ButtonGotPressed(string buttonName)
     {
+        switch (buttonName)
+        {
+            case "talk":
+                talkButtonState = IterateOverToys(talkButtonState, "Obj_Speak");
+                break;
+            case "love":
+                loveButtonState = IterateOverToys(loveButtonState, "Obj_Love");
+                break;
+            case "ask":
+                askButtonState = IterateOverToys(askButtonState, "Obj_Ask");
+                break;
+            default:
+                break;
 
+        }
+    }
+
+    
+    private bool IterateOverToys(bool state, string mode) 
+    {
         foreach (ObjectCommunication toy in toys)
         {
-            if (!buttonState)
+            if (state)
             {
-                toy.SetInteractionMode(InteractionMode.Speak);
+                toy.StartAnimation(mode);
             }
             else
             {
-                toy.SetInteractionMode(InteractionMode.Idle);
+                toy.ResetAnimation(mode);
             }
         }
-        buttonState = !buttonState;
-
+        return !state;
     }
 }
+
+
