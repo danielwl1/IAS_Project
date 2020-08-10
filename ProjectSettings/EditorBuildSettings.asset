@@ -48,16 +48,16 @@ EditorBuildSettings:
     path: 
     guid: 00000000000000000000000000000000
   - enabled: 0
-    path: Assets/Scenes/AR_Test_Scene_Mouse.unity
+    path: Assets/Scenes/previous/AR_Test_Scene_Mouse.unity
     guid: 9554cb76de6ed664bb9b1e2e5c462d78
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
   - enabled: 0
-    path: Assets/Scenes/AR_Test_Scene_Rab-She_Multi.unity
+    path: Assets/Scenes/previous/AR_Test_Scene_Rab-She_Multi.unity
     guid: d07bea04b34bad24b9916909cce8a967
   - enabled: 0
-    path: Assets/Scenes/Ar_Test_Scene_ComplexMovement.unity
+    path: Assets/Scenes/previous/Ar_Test_Scene_ComplexMovement.unity
     guid: 224a7c1537f188b41a992cd4953a8ae8
   - enabled: 0
     path: Assets/Scenes/final_prototype.unity
